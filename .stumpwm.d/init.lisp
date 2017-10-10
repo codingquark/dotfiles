@@ -11,7 +11,10 @@
   "Start gnome-terminal instance"
   (run-shell-command "gnome-terminal"))
 (define-key *root-map* (kbd "c") "gnome-terminal")
-(define-key *root-map* (kbd "C-f") (run-shell-command "firefox"))
+(defcommand firefox () ()
+  "Start firefox web browser"
+  (run-shell-command "firefox"))
+(define-key *root-map* (kbd "C-f") "firefox")
 
 
 ;; Model Line

@@ -3,7 +3,7 @@
 (in-package :stumpwm)
 
 ;; Set the contrib module dir
-(set-module-dir "/usr/share/stumpwm/contrib")
+(set-module-dir "~/workspace/stumpwm-contrib/util")
 
 
 ;; Change the terminal to gnome-terminal
@@ -18,16 +18,23 @@
 
 
 ;; Model Line
-(mode-line)
+;; (mode-line)
 ;; Things to be shown in the mode-line
 (setf *screen-mode-line-format*
       (list "%n | %h | %v | %B | %M | %d"))
-(toggle-mode-line (current-screen) ;; A command to toggle to mode-line for the current head.
-                  (current-head))
 (setf *window-border-style* :thin)
 (setf *mode-line-background-color* "#202020")
 (setf *mode-line-foreground-color* "#ece38b")
 (setf *mode-line-border-color* "#3a585e")
+(toggle-mode-line (current-screen) ;; A command to toggle to mode-line for the current head.
+                  (current-head))
+
+(setf (group-name (car (screen-groups (current-screen)))) "internet")
+(run-commands "gnewbg emacs"
+              "gnewbg terminals"
+              "gnewbg passwords"
+              "gnewbg music"
+              "gnewbg misc")
 
 ;; A way to get docs for a variable
 ;; (with-output-to-string (*standard-output*) (describe 'stumpwm:*maildir-modeline-fmt*))

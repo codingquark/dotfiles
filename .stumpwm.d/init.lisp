@@ -3,7 +3,7 @@
 (in-package :stumpwm)
 
 ;; Set the contrib module dir
-(set-module-dir "~/workspace/stumpwm-contrib/util")
+(set-module-dir "/home/codingquark/workspace/stumpwm-contrib")
 
 
 ;; Change the terminal to gnome-terminal

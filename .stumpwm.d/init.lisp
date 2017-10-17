@@ -21,7 +21,7 @@
 ;; (mode-line)
 ;; Things to be shown in the mode-line
 (setf *screen-mode-line-format*
-      (list "%n | %h | %v | %B | %M | %d"))
+      (list "%n | %h | %v | %B | %M | %d | %l"))
 (setf *window-border-style* :thin)
 (setf *mode-line-background-color* "#202020")
 (setf *mode-line-foreground-color* "#ece38b")
@@ -42,3 +42,4 @@
 ;; Load modules
 (load-module "battery-portable")
 (load-module "maildir")
+(load-module "net")

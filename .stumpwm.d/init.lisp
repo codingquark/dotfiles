@@ -16,6 +16,25 @@
   (run-shell-command "firefox"))
 (define-key *root-map* (kbd "C-f") "firefox")
 
+;; Keybinding for emacsclient
+(defcommand emacsclient () ()
+  "Start emacsclient -c"
+  (run-shell-command "emacsclient -c"))
+(define-key *root-map* (kbd "C-e") "emacsclient")
+
+;; Swap heads
+(defcommand swap-heads () ()
+  "Swap windows between heads"
+  (let* ((cs (current-screen))
+         (cg (current-group))
+         (heads (stumpwm::screen-heads cs))
+         (head-1-windows (stumpwm::head-windows cg (first heads)))
+         (head-2-windows (stumpwm::head-windows cg (second heads))))
+    (dolist (w head-1-windows)
+      (stumpwm::pull-window w (first (stumpwm::head-frames cg (second heads)))))
+    (dolist (w head-2-windows)
+      (stumpwm::pull-window w (first (stumpwm::head-frames cg (first heads)))))))
+
 
 ;; Model Line
 ;; (mode-line)

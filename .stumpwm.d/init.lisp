@@ -22,6 +22,24 @@
   (run-shell-command "emacsclient -c"))
 (define-key *root-map* (kbd "C-e") "emacsclient")
 
+;; Keybinding for arandr
+(defcommand arandr () ()
+  "Start arandr"
+  (run-shell-command "arandr"))
+(define-key *root-map* (kbd "C-a") "arandr")
+
+;; Keybinding for pavucontrol
+(defcommand pavucontrol () ()
+  "Start pavucontrol"
+  (run-shell-command "pavucontrol"))
+(define-key *root-map* (kbd "C-p") "pavucontrol")
+
+;; Keybinding for keepassx
+(defcommand keepassx () ()
+  "Start keepassx"
+  (run-shell-command "keepassx"))
+(define-key *root-map* (kbd "C-k") "keepassx")
+
 ;; Swap heads
 (defcommand swap-heads () ()
   "Swap windows between heads"
@@ -34,6 +52,7 @@
       (stumpwm::pull-window w (first (stumpwm::head-frames cg (second heads)))))
     (dolist (w head-2-windows)
       (stumpwm::pull-window w (first (stumpwm::head-frames cg (first heads)))))))
+(define-key *root-map* (kbd "C-(") "swap-heads")
 
 
 ;; Model Line

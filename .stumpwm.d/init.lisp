@@ -7,10 +7,12 @@
 
 
 ;; Change the terminal to gnome-terminal
-(defcommand gnome-terminal () ()
+(defcommand xterminal () ()
   "Start gnome-terminal instance"
-  (run-shell-command "gnome-terminal"))
-(define-key *root-map* (kbd "c") "gnome-terminal")
+  (run-shell-command "urxvt"))
+(define-key *root-map* (kbd "c") "xterminal")
+
+;; Keybinding for firefox
 (defcommand firefox () ()
   "Start firefox web browser"
   (run-shell-command "firefox"))
@@ -55,15 +57,42 @@
 (define-key *root-map* (kbd "C-(") "swap-heads")
 
 
+;; Increase / Decrease monitor brightness
+(defun xbacklight-inc (by)
+  "Uses xbacklight to increment (or decrement) the backlight level"
+  (run-shell-command (concatenate 'string "xbacklight " by))
+  (message (concatenate 'string "backlight " (run-shell-command "xbacklight" t))))
+
+(defcommand raise-backlight () ()
+            "Raise backlight via xbacklight"
+            (xbacklight-inc "+5"))
+
+(defcommand lower-backlight () ()
+            "Lower backlight via xbacklight"
+            (xbacklight-inc "-5"))
+
+(define-key *top-map* (kbd "XF86MonBrightnessUp") "raise-backlight")
+(define-key *top-map* (kbd "XF86MonBrightnessDown") "lower-backlight")
+
+
 ;; Model Line
 ;; (mode-line)
 ;; Things to be shown in the mode-line
+;; ^> makes the date right aligned.
 (setf *screen-mode-line-format*
-      (list "%n | %h | %v | %B | %d | %l"))
+      (list "%n | %h | %v | %B | %M | %l ^>%d"))
+;; Styling
 (setf *window-border-style* :thin)
-(setf *mode-line-background-color* "#202020")
+;; (setf *mode-line-background-color* "#202020")
+(setf *mode-line-background-color* "#000000")
 (setf *mode-line-foreground-color* "#ece38b")
-(setf *mode-line-border-color* "#3a585e")
+;; (setf *mode-line-foreground-color* "#767676")
+(setf *mode-line-border-color* "#000000")
+;; Set the datetime format: e.g: Thu Mar 3 23:05
+(setf *time-modeline-string* "%a %b %e %k:%M")
+
+(setf *mode-line-timeout* 1)
+
 (toggle-mode-line (current-screen) ;; A command to toggle to mode-line for the current head.
                   (current-head))
 
@@ -80,3 +109,4 @@
 ;; Load modules
 (load-module "battery-portable")
 (load-module "net")
+(load-module "mem")

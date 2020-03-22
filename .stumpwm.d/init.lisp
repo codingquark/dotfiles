@@ -42,6 +42,12 @@
   (run-shell-command "keepassx"))
 (define-key *root-map* (kbd "C-k") "keepassx")
 
+;; Keybinding for slock
+(defcommand lock-screen () ()
+  "Lock screen with slock"
+  (run-shell-command "slock"))
+(define-key *root-map* (kbd "F2") "lock-screen")
+
 ;; Swap heads
 (defcommand swap-heads () ()
   "Swap windows between heads"

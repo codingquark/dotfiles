@@ -58,21 +58,31 @@
 
 
 ;; Increase / Decrease monitor brightness
-(defun xbacklight-inc (by)
+(defun xbacklight-change (by)
   "Uses xbacklight to increment (or decrement) the backlight level"
   (run-shell-command (concatenate 'string "xbacklight " by))
-  (message (concatenate 'string "backlight " (run-shell-command "xbacklight" t))))
+  (message (concatenate 'string "Brightness: " by)))
 
 (defcommand raise-backlight () ()
             "Raise backlight via xbacklight"
-            (xbacklight-inc "+5"))
+            (xbacklight-change "+5"))
 
 (defcommand lower-backlight () ()
             "Lower backlight via xbacklight"
-            (xbacklight-inc "-5"))
+            (xbacklight-change "-5"))
+
+(defcommand max-brightness () ()
+  "Set brightness to 100%"
+  (xbacklight-change "-set 100"))
+
+(defcommand min-reasonable-brightness () ()
+  "Set brightness to 35%"
+  (xbacklight-change "-set 35"))
 
 (define-key *top-map* (kbd "XF86MonBrightnessUp") "raise-backlight")
 (define-key *top-map* (kbd "XF86MonBrightnessDown") "lower-backlight")
+(define-key *root-map* (kbd "XF86MonBrightnessUp") "max-brightness")
+(define-key *root-map* (kbd "XF86MonBrightnessDown") "min-reasonable-brightness")
 
 
 ;; Model Line
